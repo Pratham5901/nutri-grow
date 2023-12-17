@@ -4,3 +4,4 @@ npm-debug.log
 /*.env
 # Local Netlify folder
 .netlify
+package-lock.json
