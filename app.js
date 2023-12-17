@@ -16,7 +16,7 @@ const port = 3000;
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb+srv://dhimanpratham1:pd592001@cluster0.qxpw0un.mongodb.net/NutriGrow",{useNewUrlParser: true});
+mongoose.connect(process.env.MONGODB_URL,{useNewUrlParser: true});
 
 const userSchema = new mongoose.Schema({
   username: String,
