@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 app.get("/", (req, res) => {
+  
     res.render(__dirname+"/views/home.ejs",{user:false});
    });
 
