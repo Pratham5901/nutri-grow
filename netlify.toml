@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"  # Update with the appropriate build command
+  functions = "functions"    # Update if your serverless functions are in a different directory
+  publish = "public"         # Update if your static files are in a different directory
+
+[[redirects]]
+  from = "/*"
+  to = "views/home.ejs"
+  status = 200
