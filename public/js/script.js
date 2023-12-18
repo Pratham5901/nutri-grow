@@ -69,15 +69,6 @@ function postToRegister() {
     form.submit();
   }
  
-  function postToShop() {
-    // Create a form dynamically
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = '/shop';
 
-    // Append the form to the body
-    document.body.appendChild(form);
 
-    // Submit the form
-    form.submit();
-  } 
+  

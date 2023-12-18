@@ -87,12 +87,26 @@ app.post('/login', (req, res) => {
     res.redirect("/");
    });
 
-   app.post("/shop",(req,res)=>{
+   app.get("/shop",(req,res)=>{
     console.log(user);
     res.render(__dirname+"/views/shop.ejs",{user:false});
   });
-
-  
+  app.get("/review",(req,res)=>{
+    console.log(user);
+    res.render(__dirname+"/views/review.ejs",{user:false});
+  });
+  app.get("/about",(req,res)=>{
+    console.log(user);
+    res.render(__dirname+"/views/about.ejs",{user:false});
+  }); 
+  app.get("/blog",(req,res)=>{
+    console.log(user);
+    res.render(__dirname+"/views/blog.ejs",{user:false});
+  });
+  app.get("/contact",(req,res)=>{
+    console.log(user);
+    res.render(__dirname+"/views/contact.ejs",{user:false});
+  });
   
 app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${port}`);
