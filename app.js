@@ -16,7 +16,7 @@ const port = 3000;
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URL,{useNewUrlParser: true});
+mongoose.connect(process.env.MONGODB_URL);
 
 const userSchema = new mongoose.Schema({
   username: String,
@@ -33,7 +33,7 @@ app.get("/", (req, res) => {
 
 app.post('/login', (req, res) => {
     const { username,email, password} = req.body;
-    console.log(username);
+
 
     User.findOne({ email ,password})
       .then(user => {
