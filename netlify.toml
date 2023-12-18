@@ -1,9 +1,0 @@
-[build]
-  command = "node app.js"  # Update with the appropriate build command
-     # Update if your serverless functions are in a different directory
-  publish = "public"         # Update if your static files are in a different directory
-
-[[redirects]]
-  from = "app.js"
-  to = "app.js"
-  status = 200
