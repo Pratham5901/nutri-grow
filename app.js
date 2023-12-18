@@ -5,6 +5,7 @@ import { fileURLToPath } from "url";
 import mongoose from "mongoose";
 //import { register } from "module";
 import dotenv from 'dotenv';
+import { MongoClient } from 'mongodb';
 dotenv.config();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -16,8 +17,25 @@ const port = 3000;
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URL);
+//mongoose.connect(process.env.MONGODB_URL);
+//const uri = 'mongodb+srv://username:password@cluster.mongodb.net/test?ssl=true&sslValidate=false';
+//const client = new MongoClient(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 
+async function connectToDatabase() {
+  try {
+    await mongoose.connect(process.env.MONGODB_URL);
+    console.log('Connected to MongoDB');
+
+    // Your code to interact with the database goes here
+
+  } 
+  finally {
+    // await client.close();
+    //console.log('Connection to MongoDB closed');
+  }
+}
+
+connectToDatabase();
 const userSchema = new mongoose.Schema({
   username: String,
   email:String,
