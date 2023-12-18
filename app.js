@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
     res.render(__dirname+"/views/home.ejs",{user:false});
    });
 
-app.get('/login', (req, res) => {
+app.post('/login', (req, res) => {
     const { username,email, password} = req.body;
 
 
