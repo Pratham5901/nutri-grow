@@ -3,9 +3,9 @@ import bodyParser from "body-parser";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import mongoose from "mongoose";
-//import { register } from "module";
+
 import dotenv from 'dotenv';
-import { MongoClient } from 'mongodb';
+
 dotenv.config();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -17,23 +17,8 @@ const port = 3000;
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
-//mongoose.connect(process.env.MONGODB_URL);
+mongoose.connect(process.env.MONGODB_URL);
 
-async function connectToDatabase() {
-  try {
-    await mongoose.connect(process.env.MONGODB_URL);
-    console.log('Connected to MongoDB');
-
-    // Your code to interact with the database goes here
-
-  } 
-  finally {
-    // await client.close();
-    //console.log('Connection to MongoDB closed');
-  }
-}
-
-connectToDatabase();
 const userSchema = new mongoose.Schema({
   username: String,
   email:String,
@@ -47,7 +32,7 @@ app.get("/", (req, res) => {
     res.render(__dirname+"/views/home.ejs",{user:false});
    });
 
-app.post('/login', (req, res) => {
+app.get('/login', (req, res) => {
     const { username,email, password} = req.body;
 
 
