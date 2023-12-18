@@ -18,8 +18,6 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
 //mongoose.connect(process.env.MONGODB_URL);
-//const uri = 'mongodb+srv://username:password@cluster.mongodb.net/test?ssl=true&sslValidate=false';
-//const client = new MongoClient(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 
 async function connectToDatabase() {
   try {
