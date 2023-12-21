@@ -59,7 +59,7 @@ app.post('/login', (req, res) => {
 
   app.post('/register', (req, res) => {
     const { username,email, password, confirmPassword} = req.body;
-  res.render(__dirname+"/views/register.ejs");
+  res.render(__dirname+"/views/register.ejs",{user:false});
 
   if (password !== confirmPassword) {
     return console.log('Password and Confirm Password must match.');
