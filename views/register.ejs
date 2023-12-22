@@ -5,6 +5,11 @@
   <p> <a href="/">home >></a> register </p>
 </div>
 
+<% if (message) { %>
+  <script>
+    alert('<%= message %>');
+  </script>
+<% } %>
 
 <section class="contact">
  <div class="row"></div>
@@ -27,15 +32,15 @@
 <div class="inputBox"> <label for="password"><h1>Password:</h1></label></div>
  
   <div class="inputBox">
-    <input type="password"id="password" name="password" placeholder="enter your password" class="box" required> 
+    <input type="password" id="password" name="password" placeholder="enter your password" class="box" required> 
   </div>
   
 <div class="inputBox"><label for="confirmPassword"><h1>Confirm Password:</h1></label></div>
   
   <div class="inputBox">
-    <input type="text"id="confirmPassword" name="confirmPassword" placeholder="again enter your password" class="box" required> 
+    <input type="text" id="confirmPassword" name="confirmPassword" placeholder="again enter your password" class="box" required> 
   </div>
-  <input type="submit" value="Register" class="btn">
+  <input type="submit" value="Register" class="btn" >
   </form>
 </div>
 

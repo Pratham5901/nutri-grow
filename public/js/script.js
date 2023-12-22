@@ -60,13 +60,27 @@ function postToRegister() {
     // Create a form dynamically
     const form = document.createElement('form');
     form.method = 'POST';
-    form.action = '/register';
+    form.action = '/register-page';
 
     // Append the form to the body
     document.body.appendChild(form);
-
+    
     // Submit the form
     form.submit();
+    
+  }
+  function validateForm() {
+    
+    const password = document.getElementById('password').value;
+    var confirmPassword = document.getElementById('confirmPassword').value;
+console.log(password);
+    if (password !== confirmPassword) {
+      alert('Password and Confirm Password do not match!');
+      return false;
+    }
+
+    // Continue with form submission if passwords match
+    return true;
   }
  
 

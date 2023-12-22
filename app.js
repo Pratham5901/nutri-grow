@@ -3,14 +3,14 @@ import bodyParser from "body-parser";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import mongoose from "mongoose";
-
+//import data from './date.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-let user=false;
-
+let userLogin=false;
+let abc="";
 const app=express();
 const port = 3000;
 
@@ -29,7 +29,7 @@ const User = mongoose.model('User', userSchema);
 
 app.get("/", (req, res) => {
   
-    res.render(__dirname+"/views/home.ejs",{user:false});
+    res.render(__dirname+"/views/home.ejs",{userLogin,user:abc});
    });
 
 app.post('/login', (req, res) => {
@@ -39,13 +39,17 @@ app.post('/login', (req, res) => {
     User.findOne({ email ,password})
       .then(user => {
         if (user) {
-          
+          console.log(user);
           console.log('Login successful!');
           User.find({email},{_id:0,username:1})
-          .then(users =>{
-         
-              res.render(__dirname+"/views/home.ejs" ,{user:true,users});
+          .then(user =>{
+           
+              res.render(__dirname+"/views/home.ejs" ,{user,userLogin:true});
+            console.log("login");
+              console.log(userLogin);
             
+            console.log(abc);
+            return userLogin = true, abc=user;
             })
     
         } else {
@@ -55,57 +59,66 @@ app.post('/login', (req, res) => {
       })
    
   });
-   
+  app.post("/register-page",(req,res)=>{
+    res.render(__dirname+"/views/register.ejs",{userLogin:false, message: null});
+   });
 
   app.post('/register', (req, res) => {
     const { username,email, password, confirmPassword} = req.body;
-  res.render(__dirname+"/views/register.ejs",{user:false});
-
+  //res.render(__dirname+"/views/register.ejs",{userLogin:false, message: null});
   if (password !== confirmPassword) {
+    res.render(__dirname+"/views/register.ejs", {userLogin:false, message: 'Password and Confirm Password do not match!' });
     return console.log('Password and Confirm Password must match.');
   }
+  
 
     // Check if the username is already taken
     User.findOne({ email })
       .then(existingUser => {
         if (existingUser) {
           //res.send('Username already exists. Please choose a different username.');
+          res.render(__dirname+"/views/register.ejs", {userLogin:false, message: 'Username already exists. Please choose a different username.' });
           console.log("Username already exists. Please choose a different username.");
         } else {
           // Create a new user
           console.log("new user created");
-          
+          res.render(__dirname+"/views/register.ejs", {userLogin:false, message: 'new user created' });
           return User.create({ username,email, password});
           
         }
       });
-     
+
+      
       
       
   });  
   app.post("/signout", (req, res) => {
     res.redirect("/");
+    return userLogin=false;
    });
 
    app.get("/shop",(req,res)=>{
-    console.log(user);
-    res.render(__dirname+"/views/shop.ejs",{user:false});
+    console.log("shop");
+    console.log(userLogin);
+    console.log(abc);
+    res.render(__dirname+"/views/shop.ejs",{userLogin,user:abc});
   });
+
   app.get("/review",(req,res)=>{
-    console.log(user);
-    res.render(__dirname+"/views/review.ejs",{user:false});
+   // console.log(user);
+    res.render(__dirname+"/views/review.ejs",{userLogin,user:abc});
   });
   app.get("/about",(req,res)=>{
-    console.log(user);
-    res.render(__dirname+"/views/about.ejs",{user:false});
+   // console.log(user);
+    res.render(__dirname+"/views/about.ejs",{userLogin,user:abc});
   }); 
   app.get("/blog",(req,res)=>{
-    console.log(user);
-    res.render(__dirname+"/views/blog.ejs",{user:false});
+   // console.log(user);
+    res.render(__dirname+"/views/blog.ejs",{userLogin,user:abc});
   });
   app.get("/contact",(req,res)=>{
-    console.log(user);
-    res.render(__dirname+"/views/contact.ejs",{user:false});
+    console.log("contact");
+    res.render(__dirname+"/views/contact.ejs",{userLogin,user:abc});
   });
   
 app.listen(process.env.PORT, () => {

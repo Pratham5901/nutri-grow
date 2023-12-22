@@ -80,9 +80,9 @@
         <h3 class="total"> total : <span>56.97</span> </h3>
         <a href="#" class="btn">checkout cart</a>
     </div>
-<% if(user){ %>
+<% if(userLogin){ %>
     <form action="/signout" class="login-form" method="post">
-        <h3>Hi <% users.forEach(function(i){%> <%=  i.username%><% }) %></h3>
+        <h3>Hi <% user.forEach(function(i){%> <%=  i.username%><% }) %></h3>
         <input type="submit" value="Sign Out"  class="btn">
     </form>
 <% } else{%>
