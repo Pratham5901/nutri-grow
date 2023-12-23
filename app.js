@@ -22,11 +22,16 @@ mongoose.connect(process.env.MONGODB_URL);
 const userSchema = new mongoose.Schema({
   username: String,
   email:String,
-  password: String,
+  password: String
 });
-
+const productSchema = new mongoose.Schema({
+  productName: String,
+  price:String,
+  imageSource: String,
+  category: String
+});
 const User = mongoose.model('User', userSchema);
-
+const Product=mongoose.model('Product', productSchema);
 app.get("/", (req, res) => {
   
     res.render(__dirname+"/views/home.ejs",{userLogin,user:abc});
@@ -39,7 +44,18 @@ app.post('/login', (req, res) => {
     User.findOne({ email ,password})
       .then(user => {
         if (user) {
-          console.log(user);
+          console.log(user.email);
+          console.log(process.env.admin);
+          if(user.email===process.env.admin){
+            console.log('welcome admin');
+            User.find({email},{_id:0,username:1})
+            .then(user =>{
+           
+              res.render(__dirname+"/views/home.ejs" ,{user,userLogin:true});
+              return userLogin = true, abc=user;
+            })
+            return userLogin = true, abc=user;
+          }
           console.log('Login successful!');
           User.find({email},{_id:0,username:1})
           .then(user =>{
@@ -97,12 +113,28 @@ app.post('/login', (req, res) => {
     return userLogin=false;
    });
 
-   app.get("/shop",(req,res)=>{
-    console.log("shop");
-    console.log(userLogin);
-    console.log(abc);
-    res.render(__dirname+"/views/shop.ejs",{userLogin,user:abc});
+   app.get("/shop",async (req,res)=>{
+    try {
+    const products = await Product.find({});
+    
+    
+    res.render(__dirname+"/views/shop.ejs",{userLogin,user:abc,products});
+    
+   }
+   catch (error) {
+    console.error('Error fetching products:');
+    
+  }
   });
+
+  app.post("/shop-product",(req,res)=>{
+    const { productName,price, imageSource,category} = req.body;
+    Product.create({ productName,price, imageSource,category});
+    console.log("product added");
+    res.redirect("/shop");
+  }
+  
+  );
 
   app.get("/review",(req,res)=>{
    // console.log(user);
@@ -117,7 +149,7 @@ app.post('/login', (req, res) => {
     res.render(__dirname+"/views/blog.ejs",{userLogin,user:abc});
   });
   app.get("/contact",(req,res)=>{
-    console.log("contact");
+    
     res.render(__dirname+"/views/contact.ejs",{userLogin,user:abc});
   });
   
