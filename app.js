@@ -11,6 +11,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 let userLogin=false;
 let abc="";
+let admin=false;
 const app=express();
 const port = 3000;
 
@@ -51,12 +52,13 @@ app.post('/login', (req, res) => {
             User.find({email},{_id:0,username:1})
             .then(user =>{
            
-              res.render(__dirname+"/views/home.ejs" ,{user,userLogin:true});
-              return userLogin = true, abc=user;
+              res.render(__dirname+"/views/home.ejs" ,{user,userLogin:true,admin:true});
+              return userLogin = true, abc=user, admin=true;
             })
             return userLogin = true, abc=user;
           }
-          console.log('Login successful!');
+          
+          else{console.log('Login successful!');
           User.find({email},{_id:0,username:1})
           .then(user =>{
            
@@ -67,6 +69,7 @@ app.post('/login', (req, res) => {
             console.log(abc);
             return userLogin = true, abc=user;
             })
+          }
     
         } else {
           console.log('Invalid credentials');
@@ -118,7 +121,7 @@ app.post('/login', (req, res) => {
     const products = await Product.find({});
     
     
-    res.render(__dirname+"/views/shop.ejs",{userLogin,user:abc,products});
+    res.render(__dirname+"/views/shop.ejs",{userLogin,user:abc,products,admin});
     
    }
    catch (error) {

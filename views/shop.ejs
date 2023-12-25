@@ -39,18 +39,19 @@
     </div>
 
 </section>
+<% if(admin){ %>
 <section class="contact">
 <div class="row">
 
     <form  action="/shop-product" method="POST" >
         <h3>Add a product</h3>
         <div class="inputBox">
-            <input type="text" for="productName" id="productName" name="productName" placeholder="enter your product name" class="box">
-            <input type="text" for="price" id="price" name="price"placeholder="enter product price" class="box" >
+            <input type="text" for="productName" id="productName" name="productName" placeholder="enter your product name" class="box" required>
+            <input type="text" for="price" id="price" name="price"placeholder="enter product price" class="box" required>
         </div>
         <div class="inputBox">
-            <input type="text" for="imageSource" id="imageSource" name="imageSource" placeholder="enter image source" class="box">
-            <input type="text" for="category" id="category" name="category" placeholder="enter product category" class="box">
+            <input type="text" for="imageSource" id="imageSource" name="imageSource" placeholder="enter image source" class="box" required>
+            <input type="text" for="category" id="category" name="category" placeholder="enter product category" class="box" required>
             
         </div>
        
@@ -59,7 +60,7 @@
 
    
 </div>
-</section>
+</section><% } %>
 <section class="products">
 
     <h1 class="title"> our <span>products</span> <a href="#">view all >></a> </h1>
